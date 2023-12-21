@@ -1,8 +1,8 @@
 #include "InitHardware.h"
-#include "Display/OLED/OLED.h"
+#include "Display/ST7735/MainDisplay.h"
 
-extern OLED& oledInstance;
+extern MainDisplay& dInstance;
 
 void InitHardware::init() {
-    oledInstance.init();
+    dInstance.init();
 }

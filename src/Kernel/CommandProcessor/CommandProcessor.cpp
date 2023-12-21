@@ -1,8 +1,8 @@
 #include "CommandProcessor.h"
 #include <Arduino.h>
-#include "../Hardware/Display/OLED/OLED.h"
+#include "../Hardware/Display/ST7735/MainDisplay.h"
 
-extern OLED& oledInstance;
+extern MainDisplay& dInstance;
 
 // Структура для хранения информации о команде
 struct CommandInfo {
@@ -13,19 +13,19 @@ struct CommandInfo {
 
 // Обработчики команд
 void clearHandler() {
-    oledInstance.clearTextBuffer();
-    oledInstance.addTextToBuffer("Display cleared");
+    dInstance.clearTextBuffer();
+    dInstance.addTextToBuffer("Display cleared");
 }
 
 void rebootHandler() {
-    oledInstance.addTextToBuffer("Reboot in 5 secs...");
+    dInstance.addTextToBuffer("Reboot in 5 secs...");
     delay(5000);
     ESP.restart();
 }
 
 void unameHandler() {
-    oledInstance.addTextToBuffer("uname -r:");
-    oledInstance.addTextToBuffer("ESPOS Kernel v0.1");
+    dInstance.addTextToBuffer("uname -r:");
+    dInstance.addTextToBuffer("ESPOS Kernel v0.1");
 }
 
 // Таблица команд
@@ -37,7 +37,7 @@ const CommandInfo commandTable[] = {
 };
 
 void CommandProcessor::process(const String &command) {
-    oledInstance.setInputMode(false);
+    dInstance.setInputMode(false);
     Serial.println("Executed command: " + command);
 
     // Поиск команды в таблице
@@ -45,15 +45,15 @@ void CommandProcessor::process(const String &command) {
         if (command == cmd.command) {
             // Вызов обработчика команды
             cmd.handler();
-            oledInstance.displayTextBuffer();
-            oledInstance.setInputMode(true);
+            dInstance.displayTextBuffer();
+            dInstance.setInputMode(true);
             return;
         }
     }
 
     // Если команда не найдена
-    oledInstance.addTextToBuffer("Not found: " + command);
+    dInstance.addTextToBuffer("Not found: " + command);
     Serial.println("Not found: " + command);
-    oledInstance.displayTextBuffer();
-    oledInstance.setInputMode(true);
+    dInstance.displayTextBuffer();
+    dInstance.setInputMode(true);
 }
