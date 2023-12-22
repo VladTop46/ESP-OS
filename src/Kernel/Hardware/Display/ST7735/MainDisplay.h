@@ -17,6 +17,18 @@ public:
     void setInputMode(bool mode);
     void updateCursor();
 
+    // Новые методы для графической оболочки
+    void drawClock();  // Отрисовка часов
+    void drawModuleIcons();  // Отрисовка иконок модулей
+    void drawBatteryIcon();  // Отрисовка иконки заряда батареи
+    void drawSeparators();  // Отрисовка разделителей
+
+    // Новый метод для начала вывода графической оболочки
+    void startDrawingShell();
+
+    void setGUIMode(bool mode);
+    bool isGUIMode() const;
+
     Adafruit_ST7735& getDisplay(); // Изменено на Adafruit_ST7735
 
     // Удаление конструкторов и операторов присваивания для предотвращения создания копий
@@ -27,13 +39,14 @@ private:
     // Приватный конструктор для предотвращения создания экземпляров вне класса
     MainDisplay();
 
-    static const int numLines = 20;
+    static const int numLines = 16;
     String textBuffer[numLines - 1];
 
     String cursorLine;
 
     Adafruit_ST7735 display; // Изменено на Adafruit_ST7735
     bool inputMode;
+    bool GUIMode;
 };
 
 #endif

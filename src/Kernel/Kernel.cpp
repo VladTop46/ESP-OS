@@ -18,6 +18,7 @@ void Kernel::init() {
 void Kernel::boot() {
   // Очищаем буфер перед началом загрузки
   dInstance.clearTextBuffer();
+  dInstance.setGUIMode(false);
 
   // Мигаем курсором в течение 10 секунд
   unsigned long startTime = millis();

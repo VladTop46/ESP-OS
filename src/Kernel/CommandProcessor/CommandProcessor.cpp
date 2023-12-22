@@ -28,11 +28,22 @@ void unameHandler() {
     dInstance.addTextToBuffer("ESPOS Kernel v0.1");
 }
 
+void drawGUI() {
+    dInstance.addTextToBuffer("gui -start:");
+    dInstance.addTextToBuffer("Launching ESPOS GUI...:");
+    dInstance.displayTextBuffer();
+    dInstance.setGUIMode(true);
+    delay(500);
+    dInstance.startDrawingShell();
+    delay(1000);
+}
+
 // Таблица команд
 const CommandInfo commandTable[] = {
     {"clear", "Clear the display", clearHandler},
     {"reboot", "Reboot the system", rebootHandler},
     {"uname -r", "Display kernel version", unameHandler},
+    {"gui -start", "Starting GUI", drawGUI},
     // Добавьте здесь другие команды по мере необходимости
 };
 

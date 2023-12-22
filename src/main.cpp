@@ -18,10 +18,12 @@ void setup() {
 }
 
 void loop() {
-  dInstance.updateCursor();
-  // put your main code here, to run repeatedly:
-  if (Serial.available() > 0) {
-    String input = Serial.readStringUntil('\n');
-    cp.process(input);
+  if (!dInstance.isGUIMode()) {
+    dInstance.updateCursor();
+
+    if (Serial.available() > 0) {
+      String input = Serial.readStringUntil('\n');
+      cp.process(input);
+    }
   }
 }

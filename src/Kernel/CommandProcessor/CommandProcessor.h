@@ -7,6 +7,9 @@
 class CommandProcessor {
 public:
     static void process(const String &command);
+
+private:
+
 };
 
 #endif
