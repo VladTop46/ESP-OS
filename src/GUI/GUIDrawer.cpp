@@ -1,9 +1,13 @@
 #include "GUIDrawer.h"
 #include "../Kernel/Hardware/Display/ST7735/MainDisplay.h"
 
+#include <iostream>
+#include <thread>
+#include <chrono>
+
 #define CLOCK_X 4
 #define CLOCK_Y 3
-#define CLOCK_WIDTH 3
+#define CLOCK_WIDTH 4
 #define CLOCK_HEIGHT 8
 
 #define MODULE_ICON_WIDTH 8
@@ -26,6 +30,32 @@
 #define SEPARATOR_Y2 106
 
 extern MainDisplay& dInstance;
+
+
+void drawClockDots() {
+    while (true) {
+        dInstance.getDisplay().fillRect(16, 5, 2, 2, ST7735_WHITE);
+        dInstance.getDisplay().fillRect(16, 8, 2, 2, ST7735_WHITE);
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        dInstance.getDisplay().fillRect(16, 5, 2, 2, ST7735_BLACK);
+        dInstance.getDisplay().fillRect(16, 8, 2, 2, ST7735_BLACK);
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+}
+
+void GUIDrawer::drawClock() {
+
+    std::thread clockDots(drawClockDots);
+    clockDots.detach();
+
+    dInstance.getDisplay().fillRect(CLOCK_X, CLOCK_Y, CLOCK_WIDTH, CLOCK_HEIGHT, ST7735_BLUE);
+    dInstance.getDisplay().fillRect(CLOCK_X + ((CLOCK_X * 1) + 2), CLOCK_Y, CLOCK_WIDTH, CLOCK_HEIGHT, ST7735_BLUE);
+    dInstance.getDisplay().fillRect(CLOCK_X + ((CLOCK_X * 2) + 8), CLOCK_Y, CLOCK_WIDTH, CLOCK_HEIGHT, ST7735_BLUE);
+    dInstance.getDisplay().fillRect(CLOCK_X + ((CLOCK_X * 3) + 10), CLOCK_Y, CLOCK_WIDTH, CLOCK_HEIGHT, ST7735_BLUE);    
+}
 
 void GUIDrawer::drawModuleIcons() {
     // Отрисовка иконок модулей
@@ -51,6 +81,7 @@ void GUIDrawer::drawSeparators() {
 // Новый метод для начала вывода графической оболочки
 void GUIDrawer::startDrawingShell() {
     dInstance.getDisplay().fillScreen(ST7735_BLACK);
+    drawClock();
     drawModuleIcons();
     drawBatteryIcon();
     drawSeparators();
