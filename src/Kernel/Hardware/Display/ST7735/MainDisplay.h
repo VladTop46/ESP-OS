@@ -17,15 +17,6 @@ public:
     void setInputMode(bool mode);
     void updateCursor();
 
-    // Новые методы для графической оболочки
-    void drawClock();  // Отрисовка часов
-    void drawModuleIcons();  // Отрисовка иконок модулей
-    void drawBatteryIcon();  // Отрисовка иконки заряда батареи
-    void drawSeparators();  // Отрисовка разделителей
-
-    // Новый метод для начала вывода графической оболочки
-    void startDrawingShell();
-
     void setGUIMode(bool mode);
     bool isGUIMode() const;
 

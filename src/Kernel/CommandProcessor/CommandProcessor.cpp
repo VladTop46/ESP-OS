@@ -1,8 +1,10 @@
 #include "CommandProcessor.h"
 #include <Arduino.h>
 #include "../Hardware/Display/ST7735/MainDisplay.h"
+#include "../../GUI/GUIDrawer.h"
 
 extern MainDisplay& dInstance;
+GUIDrawer gdraw;
 
 // Структура для хранения информации о команде
 struct CommandInfo {
@@ -34,7 +36,7 @@ void drawGUI() {
     dInstance.displayTextBuffer();
     dInstance.setGUIMode(true);
     delay(500);
-    dInstance.startDrawingShell();
+    gdraw.startDrawingShell();
     delay(1000);
 }
 

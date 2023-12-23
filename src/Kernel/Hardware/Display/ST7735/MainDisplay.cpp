@@ -118,42 +118,6 @@ Adafruit_ST7735& MainDisplay::getDisplay() {
     return display;
 }
 
-// Добавление графической оболочки для дисплея ST7735
-
-void MainDisplay::drawModuleIcons() {
-    // Отрисовка иконок модулей
-    for (int i = 0; i < 3; ++i) {
-        int iconX = FIRST_MODULE_ICON_X + i * (MODULE_ICON_WIDTH + MODULE_ICON_MARGIN);
-        int iconY = FIRST_MODULE_ICON_Y;
-        
-        dInstance.getDisplay().fillRect(iconX, iconY, MODULE_ICON_WIDTH, MODULE_ICON_HEIGHT, ST7735_BLUE);
-    }
-}
-
-void MainDisplay::drawBatteryIcon() {
-    // Отрисовка иконки заряда батареи
-    dInstance.getDisplay().fillRect(BATTERY_ICON_X, BATTERY_ICON_Y, BATTERY_ICON_WIDTH, BATTERY_ICON_HEIGHT, ST7735_BLUE);
-}
-
-void MainDisplay::drawSeparators() {
-    // Отрисовка разделительных линий
-    dInstance.getDisplay().drawFastHLine(0, SEPARATOR_Y1, 160, ST7735_WHITE);
-    dInstance.getDisplay().drawFastHLine(0, SEPARATOR_Y2, 160, ST7735_WHITE);
-}
-
-// Новый метод для начала вывода графической оболочки
-void MainDisplay::startDrawingShell() {
-    dInstance.getDisplay().fillScreen(ST7735_BLACK);
-    drawModuleIcons();
-    drawBatteryIcon();
-    drawSeparators();
-    
-    // Отрисовка рамки основной области
-    dInstance.getDisplay().drawRect(MAIN_AREA_X, MAIN_AREA_Y, MAIN_AREA_WIDTH, MAIN_AREA_HEIGHT, ST7735_WHITE);
-    
-    // Добавьте здесь код для отрисовки других динамических областей при необходимости
-}
-
 void MainDisplay::setGUIMode(bool mode) {
     GUIMode = mode;
 }
