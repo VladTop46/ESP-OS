@@ -3,13 +3,17 @@
 #include "Kernel.h"
 #include "Hardware/InitHardware.h"
 #include "Hardware/Display/ST7735/MainDisplay.h"
+#include "RTC/RTC.h"
 
 InitHardware hw;
 extern MainDisplay& dInstance;
+extern RTC& rtc;
 
 void Kernel::init() {
   Serial.begin(9600);
   Serial.println("ESPOS v0.1 bootup...");
+
+  rtc.startClock();
 
   hw.init();
   boot();

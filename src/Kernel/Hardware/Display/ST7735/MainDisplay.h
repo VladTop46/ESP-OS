@@ -19,7 +19,7 @@ public:
 
     void setGUIMode(bool mode);
     bool isGUIMode() const;
-
+    
     Adafruit_ST7735& getDisplay(); // Изменено на Adafruit_ST7735
 
     // Удаление конструкторов и операторов присваивания для предотвращения создания копий

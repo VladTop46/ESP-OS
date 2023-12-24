@@ -125,3 +125,5 @@ void MainDisplay::setGUIMode(bool mode) {
 bool MainDisplay::isGUIMode() const {
     return GUIMode;
 }
+
+
