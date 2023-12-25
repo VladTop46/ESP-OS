@@ -3,11 +3,13 @@
 #include "Kernel.h"
 #include "Hardware/InitHardware.h"
 #include "Hardware/Display/ST7735/MainDisplay.h"
+#include "CommandProcessor/CommandProcessor.h"
 #include "RTC/RTC.h"
 
 InitHardware hw;
 extern MainDisplay& dInstance;
 extern RTC& rtc;
+CommandProcessor cp;
 
 void Kernel::init() {
   Serial.begin(9600);
@@ -60,4 +62,16 @@ void Kernel::kernel() {
 
   dInstance.displayTextBuffer();
   dInstance.setInputMode(true);
+
+  while (true) {
+    if (!dInstance.isGUIMode()) {
+      dInstance.updateCursor();
+
+      if (Serial.available() > 0) {
+        String input = Serial.readStringUntil('\n');
+        cp.process(input);
+      }
+    }
+  }
+
 }

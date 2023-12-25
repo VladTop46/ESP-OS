@@ -2,6 +2,8 @@
 #include "../Kernel/Hardware/Display/ST7735/MainDisplay.h"
 #include "../Kernel/RTC/RTC.h"
 
+#include "Icons/Battery/Battery.h"
+
 
 #include <iostream>
 #include <thread>
@@ -18,10 +20,8 @@
 #define FIRST_MODULE_ICON_X 44
 #define FIRST_MODULE_ICON_Y 3
 
-#define BATTERY_ICON_X 127
+#define BATTERY_ICON_X 137
 #define BATTERY_ICON_Y 2
-#define BATTERY_ICON_WIDTH 1
-#define BATTERY_ICON_HEIGHT 10
 
 #define MAIN_AREA_X 1
 #define MAIN_AREA_Y 17
@@ -33,6 +33,7 @@
 
 extern MainDisplay& dInstance;
 extern RTC& rtc;
+Battery battery;
 
 void drawClockDots() {
     while (true) {
@@ -72,7 +73,7 @@ void GUIDrawer::drawModuleIcons() {
 
 void GUIDrawer::drawBatteryIcon() {
     // Отрисовка иконки заряда батареи
-    dInstance.getDisplay().fillRect(BATTERY_ICON_X, BATTERY_ICON_Y, BATTERY_ICON_WIDTH, BATTERY_ICON_HEIGHT, ST7735_BLUE);
+    battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 100);
 }
 
 void GUIDrawer::drawSeparators() {
