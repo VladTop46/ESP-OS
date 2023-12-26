@@ -3,6 +3,8 @@
 #include "../Kernel/RTC/RTC.h"
 
 #include "Icons/Battery/Battery.h"
+#include "Icons/Modules/Drawer.h"
+#include "Icons/Modules/Icons.h"
 
 
 #include <iostream>
@@ -14,8 +16,8 @@
 #define CLOCK_WIDTH 4
 #define CLOCK_HEIGHT 8
 
-#define MODULE_ICON_WIDTH 8
-#define MODULE_ICON_HEIGHT 8
+#define MODULE_ICON_WIDTH 9
+#define MODULE_ICON_HEIGHT 9
 #define MODULE_ICON_MARGIN 2
 #define FIRST_MODULE_ICON_X 44
 #define FIRST_MODULE_ICON_Y 3
@@ -34,6 +36,9 @@
 extern MainDisplay& dInstance;
 extern RTC& rtc;
 Battery battery;
+
+Drawer drawer;
+Icons icons;
 
 void drawClockDots() {
     while (true) {
@@ -61,17 +66,21 @@ void GUIDrawer::drawClock() {
     clockDots.detach();
 }
 
+// ONLY FOR TEST
+
 void GUIDrawer::drawModuleIcons() {
-    // Отрисовка иконок модулей
+    static const uint16_t (*iconArray[])[9][9] = {
+        &icons.WiFiEnabledIcon,
+        &icons.BTEnabledIcon,
+        &icons.RFIDEnabledIcon,
+        &icons.GPSEnabledIcon,
+        &icons.GyroscopeEnabledIcon
+    };
+
     for (int i = 0; i < 5; ++i) {
-        int iconX = FIRST_MODULE_ICON_X + i * (MODULE_ICON_WIDTH + MODULE_ICON_MARGIN);
-        int iconY = FIRST_MODULE_ICON_Y;
-        
-        dInstance.getDisplay().fillRect(iconX, iconY, MODULE_ICON_WIDTH, MODULE_ICON_HEIGHT, ST7735_BLUE);
+        drawer.drawIcon(FIRST_MODULE_ICON_X + i * (MODULE_ICON_WIDTH + MODULE_ICON_MARGIN), FIRST_MODULE_ICON_Y, (*iconArray[i]));
     }
 }
-
-// ONLY FOR TEST
 
 void batteryDrawer() {
     while (true) {
