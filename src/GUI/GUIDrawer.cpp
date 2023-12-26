@@ -71,9 +71,31 @@ void GUIDrawer::drawModuleIcons() {
     }
 }
 
+// ONLY FOR TEST
+
+void batteryDrawer() {
+    while (true) {
+        battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 100);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 80);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 75);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 50);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 25);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 10);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+}
+
+// ONLY FOR TEST
+
 void GUIDrawer::drawBatteryIcon() {
     // Отрисовка иконки заряда батареи
-    battery.drawBatteryIcon(BATTERY_ICON_X, BATTERY_ICON_Y, 100);
+    std::thread batteryDraw(batteryDrawer);
+    batteryDraw.detach();
 }
 
 void GUIDrawer::drawSeparators() {
