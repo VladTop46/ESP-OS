@@ -4,29 +4,14 @@
 #define TFT_RST 4
 #define TFT_DC 2
 
-#define CLOCK_X 4
-#define CLOCK_Y 3
-#define CLOCK_WIDTH 3
-#define CLOCK_HEIGHT 8
+#define MAIN_AREA_HEIGHT 87
+#define MAIN_AREA_WIDTH 156
 
-#define MODULE_ICON_WIDTH 8
-#define MODULE_ICON_HEIGHT 8
-#define MODULE_ICON_MARGIN 2
-#define FIRST_MODULE_ICON_X 44
-#define FIRST_MODULE_ICON_Y 3
+#define MAIN_AREA_X1 2
+#define MAIN_AREA_Y1 18
 
-#define BATTERY_ICON_X 127
-#define BATTERY_ICON_Y 2
-#define BATTERY_ICON_WIDTH 1
-#define BATTERY_ICON_HEIGHT 10
-
-#define MAIN_AREA_X 1
-#define MAIN_AREA_Y 17
-#define MAIN_AREA_WIDTH 158
-#define MAIN_AREA_HEIGHT 88
-
-#define SEPARATOR_Y1 15
-#define SEPARATOR_Y2 106
+#define MAIN_AREA_X2 157
+#define MAIN_AREA_Y2 104
 
 MainDisplay& dInstance = MainDisplay::getInstance();
 
@@ -51,6 +36,7 @@ void MainDisplay::clearTextBuffer() {
     for (int i = 0; i < numLines; ++i) {
         textBuffer[i] = "";
     }
+    dInstance.displayTextBuffer();
 }
 
 void MainDisplay::addTextToBuffer(const String &text) {

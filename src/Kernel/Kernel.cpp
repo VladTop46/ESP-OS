@@ -64,13 +64,14 @@ void Kernel::kernel() {
   dInstance.setInputMode(true);
 
   while (true) {
-    if (!dInstance.isGUIMode()) {
-      dInstance.updateCursor();
+    /*if (!dInstance.isGUIMode()) {
 
-      if (Serial.available() > 0) {
-        String input = Serial.readStringUntil('\n');
-        cp.process(input);
-      }
+    }*/
+
+    dInstance.updateCursor();
+    if (Serial.available() > 0) {
+      String input = Serial.readStringUntil('\n');
+      cp.process(input);
     }
   }
 

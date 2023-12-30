@@ -24,11 +24,13 @@ void clearHandler(const std::vector<String>& arguments) {
     // Для команды clear аргументы не обрабатываются
     dInstance.clearTextBuffer();
     dInstance.addTextToBuffer("Display cleared");
+    dInstance.displayTextBuffer();
 }
 
 void rebootHandler(const std::vector<String>& arguments) {
     // Для команды reboot аргументы не обрабатываются
     dInstance.addTextToBuffer("Reboot in 5 secs...");
+    dInstance.displayTextBuffer();
     delay(5000);
     ESP.restart();
 }
@@ -38,12 +40,14 @@ void unameHandler(const std::vector<String>& arguments) {
     if (arguments.size() == 1 && arguments[0] == "-r") {
         dInstance.addTextToBuffer("uname -r:");
         dInstance.addTextToBuffer("ESPOS Kernel v0.1");
+        dInstance.displayTextBuffer();
     } else {
         dInstance.addTextToBuffer("Invalid arguments");
+        dInstance.displayTextBuffer();
     }
 }
 
-void drawGUIHandler(const std::vector<String>& arguments) {
+void GUIHandler(const std::vector<String>& arguments) {
     if (arguments.size() == 1 && arguments[0] == "-v") {
         dInstance.addTextToBuffer("gui -v:");
         dInstance.addTextToBuffer("ESP OS GUI, Version 0.1");
@@ -86,7 +90,7 @@ const CommandInfo commandTable[] = {
     {"clear", "Clear the display", clearHandler},
     {"reboot", "Reboot the system", rebootHandler},
     {"uname", "Display kernel version", unameHandler},
-    {"gui", "Starting GUI", drawGUIHandler},
+    {"gui", "Starting GUI", GUIHandler},
     {"time", "Time operations", timeHandler},
     // Добавьте здесь другие команды по мере необходимости
 };
@@ -124,7 +128,6 @@ void CommandProcessor::process(const String &command) {
         if (cmd == cmdInfo.command) {
             // Вызов обработчика команды с аргументами
             cmdInfo.handler(arguments);
-            dInstance.displayTextBuffer();
             dInstance.setInputMode(true);
             return;
         }

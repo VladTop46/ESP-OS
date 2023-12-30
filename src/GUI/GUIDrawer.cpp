@@ -40,7 +40,7 @@ Battery battery;
 Drawer drawer;
 Icons icons;
 
-void drawClockDots() {
+void clockDrawer() {
     while (true) {
         std::array<int, 4> time = rtc.getTime();
 
@@ -62,7 +62,7 @@ void drawClockDots() {
 }
 
 void GUIDrawer::drawClock() {
-    std::thread clockDots(drawClockDots);
+    std::thread clockDots(clockDrawer);
     clockDots.detach();
 }
 
